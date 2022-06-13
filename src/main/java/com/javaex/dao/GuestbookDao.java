@@ -169,38 +169,4 @@ public class GuestbookDao {
 
 		return count;
 	}
-	
-	public String getPassword(int no) {
-		String pw = "";
-		getConnection();
-		try {
-			
-			// 3. SQL문 준비 / 바인딩 / 실행
-			// SQL문 준비
-			String query = "";
-			query += " select password ";
-			query += " from guestbook ";
-			query += " where no = ? ";
-			
-			// 바인딩
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
-			
-			// 실행
-			rs = pstmt.executeQuery();
-			
-			// 4.결과처리
-			while(rs.next()) {
-				pw = rs.getString("password");
-			}
-			
-			System.out.println(pw);
-			
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} 
-		
-		close();
-		return pw;
-	}
 }

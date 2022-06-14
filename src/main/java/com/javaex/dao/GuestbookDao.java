@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.javaex.vo.GuestbookVo;
 
+@Repository
 public class GuestbookDao {
 
 	// 0. import java.sql.*;
@@ -55,7 +58,7 @@ public class GuestbookDao {
 		}
 	}
 
-	public List<GuestbookVo> guestbookList() {
+	public List<GuestbookVo> getList() {
 		List<GuestbookVo> guestbookList = new ArrayList<GuestbookVo>();
 
 		this.getConnection();
@@ -70,9 +73,9 @@ public class GuestbookDao {
 			query += "        name, ";
 			query += "        password, ";
 			query += "        content, ";
-			query += "        reg_date ";
+			query += "        to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') regDate ";
 			query += " from guestbook ";
-			query += " order by reg_date desc  ";
+			query += " order by regDate ";
 
 			// 바인딩
 			pstmt = conn.prepareStatement(query);
@@ -87,7 +90,7 @@ public class GuestbookDao {
 				String name = rs.getString("name");
 				String password = rs.getString("password");
 				String content = rs.getString("content");
-				String regDate = rs.getString("reg_date");
+				String regDate = rs.getString("regDate");
 
 				GuestbookVo guestbookVo = new GuestbookVo(no, name, password, content, regDate);
 				guestbookList.add(guestbookVo);
@@ -101,7 +104,8 @@ public class GuestbookDao {
 
 		return guestbookList;
 	}
-
+	
+	//정보 추가
 	public int guestbookInsert(GuestbookVo guestbookVo) {
 		int count = 0;
 
@@ -149,12 +153,14 @@ public class GuestbookDao {
 			String query = "";
 			query += " delete from guestbook ";
 			query += " where no= ?  ";
+			query += " and password= ?  ";
 
 			// 바인딩
 			pstmt = conn.prepareStatement(query);
 
 			// 실행
 			pstmt.setInt(1, guestbookVo.getNo());
+			pstmt.setString(2, guestbookVo.getPassword());
 
 			count = pstmt.executeUpdate();
 
@@ -169,4 +175,5 @@ public class GuestbookDao {
 
 		return count;
 	}
+
 }

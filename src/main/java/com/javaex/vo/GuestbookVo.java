@@ -18,13 +18,6 @@ public class GuestbookVo {
 		this.content = content;
 		this.regDate = regDate;
 	}
-	
-	public GuestbookVo(int no, String name, String content, String regDate) {
-		this.no = no;
-		this.name = name;
-		this.content = content;
-		this.regDate = regDate;
-	}
 
 	public GuestbookVo(String name, String password, String content) {
 		this.name = name;

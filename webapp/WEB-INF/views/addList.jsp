@@ -9,12 +9,12 @@
 </head>
 <body>
 	<form action="/guestbook3/add" method="get">
-		<table border="1" width="510px">
+		<table border="1">
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="name"></td>
+				<td><input type="text" name="name" value=""></td>
 				<td>비밀번호</td>
-				<td><input type="password" name="password"></td>
+				<td><input type="password" name="password" value=""></td>
 			</tr>
 			<tr>
 				<td colspan="4"><textarea name="content" cols="68" rows="5"></textarea></td>
@@ -23,20 +23,19 @@
 				<td colspan="4"><button type="submit">등록</button></td>
 			</tr>
 		</table>
-		<input type="hidden" name="action" value="add">
 	</form>
 	<br>
 
 	<c:forEach items="${guestbookList}" var="guestbookVo">
-		<table border="1" width="510px">
+		<table border="1">
 			<tr>
 				<td>guestbookVo.no</td>
 				<td>guestbookVo.name</td>
 				<td>guestbookVo.regDate</td>
-				<td><a href="./deleteForm/${guestbookVo.no}">삭제</a></td>
+				<td><a href="/guestbook3/deleteForm/${guestbookVo.no}">[삭제]</a></td>
 			</tr>
 			<tr>
-				<td colspan="4"></td>
+				<td colspan="4" class="text-left">${guestbookVo.content}</td>
 			</tr>
 		</table>
 		<br>
